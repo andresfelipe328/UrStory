@@ -135,15 +135,16 @@ const Profile = ({stories, mode, userInfo}: Props) => {
                         <Link href={`/story/${story.slug}`} key={story.slug}>
                            <li key={story.slug} className='ml-0 flex flex-col lg:flex-row gap-2 cursor-pointer group'>
                               <div className='relative h-60 w-full lg:w-[45%] shadow-xsShadow rounded-md group-hover:shadow-smShadow overflow-hidden transition duration-200 ease-in'>
-                                 <Image
-                                    src={story.mainImg}
-                                    alt="article image"
-                                    width="100%" 
-                                    height="100%" 
-                                    layout="fill" 
-                                    objectFit="cover"
-                                    className='rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
-                                 />
+                                 {story.mainImg && 
+                                    <Image
+                                       src={story.mainImg}
+                                       alt="article image"
+                                       layout="fill" 
+                                       objectFit="cover"
+                                       priority={true}
+                                       className='rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
+                                    />
+                                 }
                               </div>
                               <div className='flex flex-col lg:w-[55%]'>
                                  <h2>{story.title}</h2>
@@ -239,10 +240,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
          }
       }
    } catch(err) {
+      console.log(err)
       return {
-         props: {
-            stories: JSON.stringify([])
-         }
+         redirect: {destination: '/login'}
       }
    }
 }

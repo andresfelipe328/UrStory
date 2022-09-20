@@ -76,8 +76,8 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [router.asPath])
 
-   const handleFollow = async () => {
-      const ans = await followWriter(profileUser.username, profileUser.userIcon)
+   const handleFollow = async (username:string, userIcon:string) => {
+      const ans = await followWriter(username, userIcon)
       setIsFollowing(ans)
    }
 
@@ -97,15 +97,15 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                <div className="lg:hidden">
                   <div className="flex gap-2 items-center">
                      <div className='w-fit rounded-full border-2 border-dark_2 dark:border-light_1 p-px'>
-                        <div className="relative w-[6.5rem] h-[6.5rem] rounded-full">
-                           <Image 
-                              src={profileUser.userIcon} 
-                              alt="author icon"
-                              width="100%" 
-                              height="100%" 
-                              layout="fill" 
-                              objectFit="cover"
-                           />
+                        <div className="relative w-[6.5rem] h-[6.5rem] overflow-hidden rounded-full">
+                           {profileUser.userIcon && 
+                              <Image 
+                                 src={profileUser.userIcon} 
+                                 alt="author icon"
+                                 layout="fill" 
+                                 objectFit="cover"
+                              />
+                           }
                         </div>
                      </div>
                      <div className="flex flex-col gap-1 "> 
@@ -117,7 +117,7 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                         }
                         {user && user?.displayName !== username ?
                               <ul className="flex gap-2"> 
-                                 <button id='follow' onClick={handleFollow} className='text-dark_2 font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
+                                 <button id='follow' onClick={() => handleFollow(profileUser.username, profileUser.userIcon)} className='text-dark_2 font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
                                     {isFollowing ? 'Following' : 'Follow'}
                                  </button>
                                  <button onClick={() => handleNotify(profileUser.username)} className='font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
@@ -160,14 +160,14 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                <div className="flex gap-1 items-end">
                   <div className='w-fit rounded-full border-2 border-dark_2 dark:border-light_1 p-px'>
                      <div className='relative w-[8.5rem] h-[8.5rem] rounded-full overflow-hidden'>
-                        <Image 
-                           src={profileUser.userIcon} 
-                           alt="author icon"
-                           width="100%" 
-                           height="100%" 
-                           layout="fill" 
-                           objectFit="cover"
-                        />
+                        {profileUser.userIcon && 
+                           <Image 
+                              src={profileUser.userIcon} 
+                              alt="author icon"
+                              layout="fill" 
+                              objectFit="cover"
+                           />
+                        }
                      </div>
                   </div>
                   <div className="flex flex-col">
@@ -183,7 +183,7 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                </div>
                {user && user?.displayName !== username ?
                      <ul className="flex gap-2 mt-5"> 
-                        <button id='follow' onClick={handleFollow} className='text-dark_2 font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
+                        <button id='follow' onClick={() => handleFollow(profileUser.username, profileUser.userIcon)} className='text-dark_2 font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
                            {isFollowing ? 'Following' : 'Follow'}
                         </button>
                         <button onClick={() => handleNotify(profileUser.username)} className='font-semibold flex items-center justify-center gap-1 bg-[#f2b400] px-5 py-2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
@@ -212,8 +212,6 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                                     <Image 
                                        src={following.userIcon} 
                                        alt="user icon" 
-                                       width="100%" 
-                                       height="100%" 
                                        layout="fill" 
                                        objectFit="cover"
                                     />
@@ -225,7 +223,7 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                         </div>
                         { user?.displayName === profileUser.username &&
                            <div className="flex gap-2">
-                              <button onClick={handleFollow}>
+                              <button onClick={() => handleFollow(following.username, following.userIcon)}>
                                  {isFollowing ? 
                                     <RiUserUnfollowFill className='text-xl text-dark_2/[.6] dark:text-light_1/[.6] hover:scale-[120%] transition-transform duration-200 ease-in-out'/>
                                  :

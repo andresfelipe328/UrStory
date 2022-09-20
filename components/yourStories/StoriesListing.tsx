@@ -7,6 +7,7 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { Post } from '../../typings'
 import { useAuth } from '../../context/AuthContext'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 interface Props {
    status: string
@@ -87,10 +88,11 @@ const StoriesListing = ({status, list}: Props) => {
                      })
                   :
                      <div className='flex flex-1 items-center justify-center'>
-                        <img 
-                           src="/empty_folder.svg" 
-                           alt="nothing here" 
-                           className='w-[45%]'   
+                        <Image
+                           src="/empty_folder.svg"
+                           alt="nothing here"
+                           width={503}
+                           height={360}
                         />
                      </div>
                }

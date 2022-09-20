@@ -40,6 +40,7 @@ const Lists = ({stories}: Props) => {
          });
          setSavedList(savedList)
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    return (

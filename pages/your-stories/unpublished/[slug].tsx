@@ -51,6 +51,7 @@ const UnpublishedStory = ({story}: Props) => {
       setContent(JSON.parse(story)[0].body)
       setPrevMainImg(JSON.parse(story)[0]!.mainImg)
       setPrevCategory(JSON.parse(story)[0]!.category)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    },[])
 
    useEffect(() => {
@@ -64,6 +65,7 @@ const UnpublishedStory = ({story}: Props) => {
             setWordCount(quill.getText().split(/\s+/).length - 1)
          })
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [quill])
 
    const handleOpenOverview = () => {

@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { useAuth } from '../context/AuthContext'
 import { FaTimes } from 'react-icons/fa'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 interface Props {
    followerList: [],
@@ -47,7 +48,16 @@ const FollowerContainer = ({followerList, followerCount, openFollowers, setOpenF
                <div key={follower.username} className='w-full flex items-center justify-around gap-2 m-0'>
                   <div className='flex gap-2 items-center'>
                      <button onClick={() => handleToProfile(follower.username)} className="rounded-full border-2 border-dark_2 dark:border-light_1 p-px">
-                        <img src={follower.userIcon} alt="user icon" className="w-[3.5rem] h-[3.5rem] object-cover rounded-full "/>
+                        <div className='relative w-[3.5rem] h-[3.5rem] rounded-full overflow-hidden'>
+                           <Image 
+                              src={follower.userIcon} 
+                              alt="user icon" 
+                              width="100%" 
+                              height="100%" 
+                              layout="fill" 
+                              objectFit="cover"
+                           />
+                        </div>
                      </button>
                      <p className='font-semibold'>{follower.username}</p>
                   </div>

@@ -86,7 +86,16 @@ const Notifications = () => {
                                     <div className='flex gap-1 items-end'>
                                        <Link href={`/profile/${story.author}`}>
                                           <div className="rounded-full border-2 border-dark_2 dark:border-light_1 hover:border-dark_1 hover:dark:border-light_2 transition duration-200 ease-in p-px cursor-pointer">
-                                             <img src={story.authorIcon} alt="user icon" className="w-[2.5rem] h-[2.5rem] object-cover rounded-full "/>
+                                             <div className="relative w-[2.5rem] h-[2.5rem] object-cover rounded-full overflow-hidden">   
+                                                <Image
+                                                   src={story.authorIcon} 
+                                                   alt="user icon"
+                                                   width="100%" 
+                                                   height="100%" 
+                                                   layout="fill" 
+                                                   objectFit="cover"
+                                                />
+                                             </div>
                                           </div>
                                        </Link>
                                        <p className='font-semibold'>{story.author}</p>

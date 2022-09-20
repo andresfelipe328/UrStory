@@ -9,6 +9,7 @@ import {gsap} from 'gsap'
 import { BsCameraFill } from 'react-icons/bs'
 import { FaTimes } from 'react-icons/fa'
 import CircleLoader from 'react-spinners/CircleLoader'
+import Image from 'next/image'
 
 
 interface Props {
@@ -41,6 +42,7 @@ const StoryOverview = ({title, content, overview, wordCount, setOverview, prevCa
             opacity: 0,
             ease: "elastic.out(1, 0.75)"
          })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [overview])
 
    const handleCloseOverview = () => {
@@ -72,18 +74,24 @@ const StoryOverview = ({title, content, overview, wordCount, setOverview, prevCa
 
    return (
       <div className='absolute flex items-center justify-center w-full h-full rounded-md bg-light_1/[.95] dark:bg-dark_2/[.95]' ref={overlay}>
-         <div className='relative mx-4 py-8 px-10 shadow-xsShadow rounded-md flex flex-col items-center gap-4 bg-light_1 dark:bg-dark_2'>
+         <div className='relative w-[425px] mx-4 py-8 px-10 shadow-xsShadow rounded-md flex flex-col items-center gap-4 bg-light_1 dark:bg-dark_2'>
             <button onClick={handleCloseOverview}>
                <FaTimes className='absolute top-1 right-1 text-dark_2 dark:text-light_1'/>
             </button>
             <h2>story overview:</h2>
             <div className='w-full flex flex-col gap-1 items-center'>
                <p className='font-semibold'>Add main image:</p>
-               <div className='relative w-full rounded-md flex items-center justify-center'>
-                  <img 
-                     src={prevMainImg && !storyImg ? prevMainImg : !storyImg ? '/defaultImg.svg' : URL.createObjectURL(storyImg)} alt="default user icon" 
-                     className=' object-cover rounded-md'
-                  />
+               <div className='relative w-full rounded-md'>
+                  <div className='relative h-48 w-full'>
+                     <Image 
+                        src={prevMainImg && !storyImg ? prevMainImg : !storyImg ? '/defaultImg.svg' : URL.createObjectURL(storyImg)}
+                        alt="user icon" 
+                        width="100%" 
+                        height="100%" 
+                        layout="fill" 
+                        objectFit="cover"
+                     />
+                  </div>
                   <label
                      htmlFor="accImg-input" 
                      className='absolute cursor-pointer -bottom-[.5rem] -right-[1.25rem] w-[2.5rem] h-[2.5rem] rounded-md flex items-center justify-center bg-dark_2 dark:bg-light_1 transition duration-200 ease-in'

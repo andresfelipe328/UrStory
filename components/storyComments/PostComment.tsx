@@ -5,6 +5,7 @@ import {BiLogInCircle} from 'react-icons/bi'
 import {IoIosSend} from 'react-icons/io'
 import {FaTimes} from 'react-icons/fa'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
    storyID: string
@@ -33,7 +34,16 @@ const PostComment = ({storyID}: Props) => {
                   <form className='flex flex-col items-center gap-2 w-full' onSubmit={handleCommentSubmit}>
                      <div className='w-full flex items-center gap-2'>
                         <div className="rounded-full border-2 border-dark_2 dark:border-light_1 p-px">
-                           <img src={user.photoURL} alt="user icon" className="w-8 h-8 object-cover rounded-full "/>
+                           <div className='relative w-8 h-8 rounded-full overflow-hidden'>
+                              <Image 
+                                 src={user.photoURL} 
+                                 alt="user icon" 
+                                 width="100%" 
+                                 height="100%" 
+                                 layout="fill" 
+                                 objectFit="cover"
+                              />
+                           </div>
                         </div>
                         <p className='font-semibold'>{user.displayName}</p>
                      </div>

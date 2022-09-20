@@ -16,6 +16,7 @@ import ProfileLayout from '../../components/ProfileLayout'
 import { collection, onSnapshot, orderBy, query, where, getDocs, doc, getDoc, limit } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import ProfileAbout from '../../components/ProfileAbout'
+import Image from 'next/image'
 
 
 const months = ["January", "February", "March", "April", "May", "June",
@@ -85,6 +86,7 @@ const Profile = ({stories, mode, userInfo}: Props) => {
          if (!router.asPath.includes('/profile'))
             unsubscribe()
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [router.asPath])
 
    const modifyDate = (timeStamp: any) => {
@@ -116,7 +118,7 @@ const Profile = ({stories, mode, userInfo}: Props) => {
 
    const handleDeleteStory = async (e:SyntheticEvent, slug:string) => {
       e.stopPropagation()
-      await deleteYourStory(slug, status)
+      await deleteYourStory(slug)
    }
 
    return (
@@ -132,11 +134,15 @@ const Profile = ({stories, mode, userInfo}: Props) => {
                      return (
                         <Link href={`/story/${story.slug}`} key={story.slug}>
                            <li key={story.slug} className='ml-0 flex flex-col lg:flex-row gap-2 cursor-pointer group'>
-                              <div className='h-fit w-full lg:w-[45%] shadow-xsShadow rounded-md group-hover:shadow-smShadow overflow-hidden transition duration-200 ease-in'>
-                                 <img 
-                                    src={story.mainImg} 
+                              <div className='relative h-60 w-full lg:w-[45%] shadow-xsShadow rounded-md group-hover:shadow-smShadow overflow-hidden transition duration-200 ease-in'>
+                                 <Image
+                                    src={story.mainImg}
                                     alt="article image"
-                                    className='h-60 w-full object-cover rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
+                                    width="100%" 
+                                    height="100%" 
+                                    layout="fill" 
+                                    objectFit="cover"
+                                    className='rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
                                  />
                               </div>
                               <div className='flex flex-col lg:w-[55%]'>

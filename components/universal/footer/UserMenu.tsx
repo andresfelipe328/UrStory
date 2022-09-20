@@ -6,6 +6,7 @@ import {FaUser} from 'react-icons/fa'
 import {gsap} from 'gsap'
 import { useAuth } from "../../../context/AuthContext"
 import { useRouter } from "next/router"
+import Image from "next/image"
 
 const UserMenu = () => {
    const {user, logout} = useAuth()
@@ -106,7 +107,14 @@ const UserMenu = () => {
 
          <button ref={userBtn} onClick={() => setOpenMenu(!openMenu)}>
             <div className="rounded-full border-2 border-dark_2 dark:border-light_1 p-px">
-               <img src={user?.photoURL || '/defaultUser.svg'} alt="user icon" className="w-8 h-8 object-cover rounded-full "/>
+               <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                  <Image 
+                     src={user?.photoURL || '/defaultUser.svg'} 
+                     alt="user icon"
+                     layout="fill" 
+                     objectFit="cover"
+                  />
+               </div>
             </div>
          </button>
       </div>

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { SyntheticEvent, useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { IoIosSend } from 'react-icons/io'
@@ -32,7 +33,16 @@ const ReplyComment = ({commentAuthor, setReply, storyID, replyTo, setReplyTo}: P
          <form className='flex flex-col items-center gap-2 w-full' onSubmit={handleReplyCommentSubmit}>
             <div className='w-full flex items-center gap-2'>
                <div className="rounded-full border-2 border-dark_2 dark:border-light_1 p-px">
-                  <img src={user.photoURL} alt="user icon" className="w-7 h-7 object-cover rounded-full "/>
+                  <div className='relative w-7 h-7 rounded-full overflow-hidden'>
+                     <Image 
+                        src={user.photoURL} 
+                        alt="user icon" 
+                        width="100%" 
+                        height="100%" 
+                        layout="fill" 
+                        objectFit="cover"
+                     />
+                  </div>
                </div>
                <p className='font-semibold'>{user.displayName}</p>
             </div>

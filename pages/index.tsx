@@ -33,6 +33,7 @@ const Home = ({stories}: Props) => {
       stagger: .2,
       ease: "elastic.out(1, 0.75)"
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSearch = (e: SyntheticEvent) => {

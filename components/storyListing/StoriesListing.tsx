@@ -8,6 +8,7 @@ import { handleReadingTime } from '../../utils/helperFuncts'
 import { useAuth } from '../../context/AuthContext'
 
 import { FaTimes } from 'react-icons/fa'
+import Image from 'next/image'
 
 interface Props {
    stories: Post[],
@@ -66,11 +67,15 @@ const StoriesListing = ({stories, mode}: Props) => {
                         </button>
                      }
                      <Link href={`/story/${story.slug}`} key={story.slug}>
-                        <div className='h-60 w-full shadow-xsShadow rounded-md group-hover:shadow-smShadow overflow-hidden transition duration-200 ease-in cursor-pointer'>
-                           <img 
-                              src={story.mainImg} 
+                        <div className='relative h-60 w-full shadow-xsShadow rounded-md group-hover:shadow-smShadow overflow-hidden transition duration-200 ease-in cursor-pointer'>
+                           <Image
+                              src={story.mainImg}
                               alt="article image"
-                              className='h-60 w-full object-cover rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
+                              width="100%" 
+                              height="100%" 
+                              layout="fill" 
+                              objectFit="cover"
+                              className='rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
                            />
                         </div>
                      </Link>
@@ -87,11 +92,16 @@ const StoriesListing = ({stories, mode}: Props) => {
                            <div className='flex gap-2 items-end relative'>
                               <Link href={`/profile/${story.author}`}>
                                  <div className='rounded-full border-2 border-dark_2/[.60] dark:border-light_1/[.60] hover:border-dark_2 hover:dark:border-light_1 transition duration-200 p-px cursor-pointer'>
-                                    <img 
-                                       src={story.authorIcon} 
-                                       alt="author icon"
-                                       className='w-12 h-12 object-cover rounded-full'
-                                    />
+                                    <div className='relative w-12 h-12 rounded-full overflow-hidden'>
+                                       <Image 
+                                          src={story.authorIcon} 
+                                          alt="user icon" 
+                                          width="100%" 
+                                          height="100%" 
+                                          layout="fill" 
+                                          objectFit="cover"
+                                       />
+                                    </div>
                                  </div>
                               </Link>
                               <div className='flex flex-col gap-1'>

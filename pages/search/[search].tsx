@@ -10,6 +10,7 @@ import { collection, query, where, getDocs, orderBy } from "firebase/firestore"
 import { GetServerSidePropsContext } from 'next'
 
 import StoriesListing from '../../components/storyListing/StoriesListing'
+import Image from 'next/image'
 
 interface Props {
    stories: string
@@ -40,6 +41,7 @@ const SearchResults = ({stories}: Props) => {
             y: -20,
             ease: "elastic.out(1, 0.75)"
          })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    },[])
 
    return (
@@ -56,10 +58,11 @@ const SearchResults = ({stories}: Props) => {
                />
             :
             <div className='flex flex-1 items-center justify-center' ref={empty}>
-               <img 
+               <Image 
                   src="/empty_folder.svg" 
                   alt="nothing here" 
-                  className='w-[45%]'   
+                  width={503}
+                  height={360}   
                />
             </div>
          }

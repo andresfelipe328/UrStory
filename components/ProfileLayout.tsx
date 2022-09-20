@@ -12,6 +12,7 @@ import { BiLogInCircle } from "react-icons/bi"
 import { doc, onSnapshot } from "firebase/firestore"
 import { db } from "../config/firebase"
 import FollowerContainer from "./FollowerContainer"
+import Image from "next/image"
 
 interface Props {
    children: any,
@@ -72,6 +73,7 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
          if (!router.asPath.includes('/profile'))
             unsubscribe()
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [router.asPath])
 
    const handleFollow = async () => {
@@ -95,11 +97,16 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                <div className="lg:hidden">
                   <div className="flex gap-2 items-center">
                      <div className='w-fit rounded-full border-2 border-dark_2 dark:border-light_1 p-px'>
-                        <img 
-                           src={profileUser.userIcon} 
-                           alt="author icon"
-                           className='w-[6.5rem] h-[6.5rem] rounded-full object-cover'
-                        />
+                        <div className="relative w-[6.5rem] h-[6.5rem] rounded-full">
+                           <Image 
+                              src={profileUser.userIcon} 
+                              alt="author icon"
+                              width="100%" 
+                              height="100%" 
+                              layout="fill" 
+                              objectFit="cover"
+                           />
+                        </div>
                      </div>
                      <div className="flex flex-col gap-1 "> 
                         <h1>{profileUser.username}</h1>
@@ -152,11 +159,16 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
             <div className="sticky top-20 flex flex-col gap-2">
                <div className="flex gap-1 items-end">
                   <div className='w-fit rounded-full border-2 border-dark_2 dark:border-light_1 p-px'>
-                     <img 
-                        src={profileUser.userIcon} 
-                        alt="author icon"
-                        className='w-[8.5rem] h-[8.5rem] rounded-full object-cover'
-                     />
+                     <div className='relative w-[8.5rem] h-[8.5rem] rounded-full overflow-hidden'>
+                        <Image 
+                           src={profileUser.userIcon} 
+                           alt="author icon"
+                           width="100%" 
+                           height="100%" 
+                           layout="fill" 
+                           objectFit="cover"
+                        />
+                     </div>
                   </div>
                   <div className="flex flex-col">
                      <h2> 
@@ -196,7 +208,17 @@ const ProfileLayout = ({children, profileUser, mode, currPage, setCurrPage}:Prop
                         <div className="flex gap-2 items-center">
                            <Link href={`/profile/${following.username}`}>
                               <div className="rounded-full border-2 border-dark_2 dark:border-light_1 hover:border-dark_1 hover:dark:border-light_2 transition duration-200 ease-in p-px cursor-pointer">
-                                 <img src={following.userIcon} alt="user icon" className="w-[2.5rem] h-[2.5rem] object-cover rounded-full "/>
+                                 <div className="relative w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden">
+                                    <Image 
+                                       src={following.userIcon} 
+                                       alt="user icon" 
+                                       width="100%" 
+                                       height="100%" 
+                                       layout="fill" 
+                                       objectFit="cover"
+                                    />
+                                 </div>
+                                 
                               </div>
                            </Link>
                            <p className="font-semibold">{following.username}</p>

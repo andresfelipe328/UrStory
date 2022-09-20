@@ -1,4 +1,5 @@
 
+import Image from 'next/image'
 import { useState } from 'react'
 import { FaReply, FaTrashAlt } from 'react-icons/fa'
 import { useAuth } from '../../context/AuthContext'
@@ -46,7 +47,16 @@ const Comment = ({storyID, author, comment}: Props) => {
       <>
          <div className='flex items-center gap-2'>
             <div className="rounded-full border-2 border-dark_2 dark:border-light_1 p-px">
-               <img src={comment.authorIcon} alt="user icon" className="w-8 h-8 object-cover rounded-full "/>
+               <div className='relative w-8 h-8 rounded-full overflow-hidden'>
+                  <Image 
+                     src={comment.authorIcon} 
+                     alt="user icon" 
+                     width="100%" 
+                     height="100%" 
+                     layout="fill" 
+                     objectFit="cover"
+                  />
+               </div>
             </div>
             <div className='flex flex-col gap-1'>
                <h4 className="font-semibold">

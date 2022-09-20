@@ -30,13 +30,14 @@ const StoriesUnpublished = ({stories}: Props) => {
 
    useEffect(() => {
       const qStories = query(collection(db, `users/${user.displayName}/stories`), orderBy('timeStamp', "desc"));
-            onSnapshot(qStories, (querySnapshot) => {
-               const storyList:any[] = [];
-               querySnapshot.forEach((doc) => {
-                  storyList.push(doc.data());
-               });
-               setYourStories(storyList)
+         onSnapshot(qStories, (querySnapshot) => {
+            const storyList:any[] = [];
+            querySnapshot.forEach((doc) => {
+               storyList.push(doc.data());
             });
+            setYourStories(storyList)
+         });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    return (

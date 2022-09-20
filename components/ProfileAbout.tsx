@@ -38,6 +38,7 @@ const ProfileAbout = () => {
       return () => {
          unsubscribe()
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [router.asPath])
 
    const handleAbout = async (e:SyntheticEvent) => {

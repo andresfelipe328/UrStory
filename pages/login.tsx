@@ -91,7 +91,7 @@ const Login: NextPage = (session) => {
 
                <div className='w-full flex flex-col items-center'>
                   <p className='text-dark_2 dark:text-light_1 font-semibold'>
-                     Don't have an account:
+                     not registered:
                   </p>
                   <Link href='sign-up'>
                      <button className='w-fit py-1 px-10 font-semibold bg-light_1 dark:bg-dark_2 dark:text-light_2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>

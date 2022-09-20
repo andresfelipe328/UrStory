@@ -1,9 +1,10 @@
 import {useRef, useEffect} from 'react'
 import { NextPage } from 'next'
 import {gsap} from 'gsap'
+import Image from 'next/image'
 
 const Page404: NextPage = () => {
-   const image = useRef<HTMLImageElement>(null)
+   const image = useRef<HTMLDivElement>(null)
    useEffect(() => {
       gsap.from(image.current, {
          duration: .8,
@@ -15,11 +16,14 @@ const Page404: NextPage = () => {
 
    return (
       <article className='p-4 flex flex-1 items-center justify-center'>
-         <img 
-            ref={image}
+         <div ref={image}>
+         <Image
             src='/notFound.png' 
             alt="not found"
+            width={482}
+            height={469}
          />
+         </div>
       </article>
    )
 }

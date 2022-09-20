@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext'
 import Link from 'next/link'
 
 import { FaTrashAlt, FaBell } from 'react-icons/fa'
+import Image from 'next/image'
 
 const months = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -103,10 +104,11 @@ const Notifications = () => {
                   })
                :
                   <div className='flex flex-1 items-center justify-center'>
-                     <img 
+                     <Image 
                         src="/empty_folder.svg" 
                         alt="nothing here" 
-                        className='w-[45%]'   
+                        width={503}
+                        height={360}   
                      />
                   </div>
             }

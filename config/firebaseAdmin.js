@@ -1,5 +1,4 @@
 import * as firebaseAdmin from 'firebase-admin'
-import serviceAccount from '../secret_key.json'
 
 export const verifyIdToken = async (token) => {
    if (!firebaseAdmin.apps.length) {

@@ -13,6 +13,7 @@ import {gsap} from 'gsap'
 import { FaTimes, FaUser } from 'react-icons/fa'
 import { useRouter } from 'next/router'
 import { GetServerSidePropsContext } from 'next'
+import Image from 'next/image'
 
 interface User {
    username: string,
@@ -75,10 +76,14 @@ const SignUpTwo = () => {
             
             <form className='flex flex-col gap-10 items-center' onSubmit={handleCompleteSignup}>
                <div className='relative w-[7rem] h-[7rem] rounded-full flex items-center justify-center border-2 border-dark_2 dark:border-light_1 transition duration-200 ease-in'>
-                  <img 
-                     src={!accImg ? '/defaultUser.svg' : URL.createObjectURL(accImg)} alt="default user icon" 
-                     className='w-[6.5rem] h-[6.5rem] object-cover rounded-full'
-                  />
+                  <div className="relative w-[6.5rem] h-[6.5rem] rounded-full overflow-hidden">
+                     <Image 
+                        src={!accImg ? '/defaultUser.svg' : URL.createObjectURL(accImg)} 
+                        alt="default user icon"
+                        layout="fill" 
+                        objectFit="cover"
+                     />
+                  </div>
                   <label
                      htmlFor="accImg-input" 
                      className='absolute cursor-pointer bottom-0 -right-[1.5rem] w-[2.5rem] h-[2.5rem] rounded-full flex items-center justify-center bg-dark_2 dark:bg-light_1 transition duration-200 ease-in'
@@ -143,9 +148,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
    } catch(err) {
       return {
-         props: {
-            loggedIn: false,
-         }
+         redirect: {destination: '/'}
       }
    }
 }

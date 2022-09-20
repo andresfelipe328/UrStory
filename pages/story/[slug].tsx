@@ -67,7 +67,7 @@ const PublishedStory = ({story, comments}: Props) => {
    useEffect(() => {
       (async () => {
          const username = JSON.parse(story).author
-         if (user.displayName !== username) {
+         if (user && user.displayName !== username) {
             const ans = await checkFollowingNotify(user.displayName, username)
             setIsFollowing(ans.isFollowing)
             setIsNotify(ans.isFollowing)
@@ -131,31 +131,32 @@ const PublishedStory = ({story, comments}: Props) => {
          </Head>
          <div className='flex flex-col gap-2 items-start lg:w-[70%]'>
             <div className='shadow-xsShadow rounded-md w-full'>
-               <div className='relative rounded-md w-full h-96'>
-                  <Image 
-                     src={yourStory.mainImg} 
-                     alt="article main image"
-                     width="100%" 
-                     height="100%" 
-                     layout="fill" 
-                     objectFit="cover" 
-                  />
-               </div>
+               { yourStory.mainImg &&
+                  <div className='relative rounded-md w-full h-96'>
+                     <Image 
+                        src={yourStory.mainImg} 
+                        alt="article main image"
+                        layout="fill" 
+                        objectFit="cover"
+                        priority={true}
+                     />
+                  </div>
+               }
             </div>
             <div className='relative flex items-end w-full justify-between gap-2 px-2 md:px-5'>
                <div className='flex items-center gap-2'>
                   <Link href={`/profile/${yourStory.author}`}>
                      <div className='rounded-full border-2 border-dark_2 dark:border-light_1 hover:border-dark_1 hover:dark:border-light_2 transition duration-200 ease-in p-px cursor-pointer'>
-                        <div className='relative w-12 h-12 rounded-full overflow-hidden'>
-                           <Image 
-                              src={yourStory.authorIcon} 
-                              alt="user icon" 
-                              width="100%" 
-                              height="100%" 
-                              layout="fill" 
-                              objectFit="cover"
-                           />
-                        </div>
+                        { yourStory.authorIcon && 
+                           <div className='relative w-12 h-12 rounded-full overflow-hidden'>
+                              <Image 
+                                 src={yourStory.authorIcon} 
+                                 alt="user icon"
+                                 layout="fill" 
+                                 objectFit="cover"
+                              />
+                           </div>
+                        }
                      </div>
                   </Link>
                   <div className='flex flex-col gap-2'>

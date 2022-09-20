@@ -71,8 +71,6 @@ const StoriesListing = ({stories, mode}: Props) => {
                            <Image
                               src={story.mainImg}
                               alt="article image"
-                              width="100%" 
-                              height="100%" 
                               layout="fill" 
                               objectFit="cover"
                               className='rounded-md group-hover:scale-105 transition-transform duration-200 ease-in'
@@ -95,9 +93,7 @@ const StoriesListing = ({stories, mode}: Props) => {
                                     <div className='relative w-12 h-12 rounded-full overflow-hidden'>
                                        <Image 
                                           src={story.authorIcon} 
-                                          alt="user icon" 
-                                          width="100%" 
-                                          height="100%" 
+                                          alt="user icon"
                                           layout="fill" 
                                           objectFit="cover"
                                        />

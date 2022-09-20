@@ -34,59 +34,61 @@ export const AuthContextProvider = ({children}: {children: React.ReactNode}) => 
             nookies.set(undefined, 'token', token, { path: '/' })
 
             // Listen for notifications
-            const followingsRef = query(collection(db, `users/${user.displayName}`, 'followings'))
-            const followingSnap = await getDocs(followingsRef)
-            const docNotifyRef = doc(db, `users/${user.displayName}/notificationDoc`, 'notifications')
-            const docNotifySnap = await getDoc(docNotifyRef)
-            const currentTimeStamp = new Date()
-
-            followingSnap.forEach((doc) => {
-               if (doc.data().notify) {
-                  const followingUser = doc.data().username
-                  const followingRef = query(collection(db, `users/${followingUser}`, 'stories'))
-                  onSnapshot(followingRef, (followingSnap) => {
-                     followingSnap.forEach(async (doc) => {
-                        const date = new Date(doc.data().timeStamp?.seconds*1000 + doc.data().timeStamp?.nanoseconds/100000)
-                        if (currentTimeStamp < date) {
-                           const newNotification = {
-                              title: doc.data().title,
-                              slug: doc.data().slug,
-                              author: doc.data().author,
-                              authorIcon: doc.data().authorIcon,
-                              category: doc.data().category,
-                              timeStamp: doc.data().timeStamp,
-                              wordCount: doc.data().wordCount,
-                              seen: false
-                           }
-                           if (!docNotifySnap.exists()) {
-                              await setDoc(docNotifyRef, {
-                                 userID: user.uid,
-                                 notifications: [newNotification]
-                              })
-                           }
-                           else {
-                              if (!docNotifySnap.data().notifications.find((notification:any) => notification.slug === newNotification.slug))
-                                 await updateDoc(docNotifyRef, {
-                                    notifications: arrayUnion(newNotification)
+            if (user.displayName) {
+               const followingsRef = query(collection(db, `users/${user.displayName}`, 'followings'))
+               const followingSnap = await getDocs(followingsRef)
+               const docNotifyRef = doc(db, `users/${user.displayName}/notificationDoc`, 'notifications')
+               const docNotifySnap = await getDoc(docNotifyRef)
+               const currentTimeStamp = new Date()
+   
+               followingSnap.forEach((doc) => {
+                  if (doc.data().notify) {
+                     const followingUser = doc.data().username
+                     const followingRef = query(collection(db, `users/${followingUser}`, 'stories'))
+                     onSnapshot(followingRef, (followingSnap) => {
+                        followingSnap.forEach(async (doc) => {
+                           const date = new Date(doc.data().timeStamp?.seconds*1000 + doc.data().timeStamp?.nanoseconds/100000)
+                           if (currentTimeStamp < date) {
+                              const newNotification = {
+                                 title: doc.data().title,
+                                 slug: doc.data().slug,
+                                 author: doc.data().author,
+                                 authorIcon: doc.data().authorIcon,
+                                 category: doc.data().category,
+                                 timeStamp: doc.data().timeStamp,
+                                 wordCount: doc.data().wordCount,
+                                 seen: false
+                              }
+                              if (!docNotifySnap.exists()) {
+                                 await setDoc(docNotifyRef, {
+                                    userID: user.uid,
+                                    notifications: [newNotification]
                                  })
+                              }
+                              else {
+                                 if (!docNotifySnap.data().notifications.find((notification:any) => notification.slug === newNotification.slug))
+                                    await updateDoc(docNotifyRef, {
+                                       notifications: arrayUnion(newNotification)
+                                    })
+                              }
                            }
-                        }
+                        })
                      })
-                  })
-               }
-            })
-
-            onSnapshot(docNotifyRef, (doc) => {
-               if (doc.exists()) {
-                  const notifications = doc.data().notifications
-                  setNotifications(notifications)
-
-                  if (notifications.find((notification:any) => notification.seen == false))
-                     setNotify(true)
-                  else
-                     setNotify(false)
-               }
-            })
+                  }
+               })
+   
+               onSnapshot(docNotifyRef, (doc) => {
+                  if (doc.exists()) {
+                     const notifications = doc.data().notifications
+                     setNotifications(notifications)
+   
+                     if (notifications.find((notification:any) => notification.seen == false))
+                        setNotify(true)
+                     else
+                        setNotify(false)
+                  }
+               })
+            }
          }
          else {
             setUser(null)

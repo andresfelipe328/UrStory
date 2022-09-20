@@ -38,8 +38,6 @@ const PostComment = ({storyID}: Props) => {
                               <Image 
                                  src={user.photoURL} 
                                  alt="user icon" 
-                                 width="100%" 
-                                 height="100%" 
                                  layout="fill" 
                                  objectFit="cover"
                               />

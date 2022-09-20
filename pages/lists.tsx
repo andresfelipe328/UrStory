@@ -90,9 +90,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
    } catch(err) {
       return {
-         props: {
-            stories: JSON.stringify([])
-         }
+         redirect: {destination: '/login'}
       }
    }
 }

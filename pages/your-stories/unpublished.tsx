@@ -65,6 +65,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
    try {
       const cookies = nookies.get(ctx)
       const token = await verifyIdToken(cookies.token)
+
+      if (!token) {
+         return {
+            redirect: {destination: '/login'}
+         }
+      }
+
       const {name} = token
       const qDrafts = query(collection(db, `users/${name}/stories`), where('status', '==', 'unpublished'), orderBy('timeStamp', "desc"))
       const qDraftsSnap = await getDocs(qDrafts)
@@ -81,11 +88,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       }
 
    } catch(err) {
-      console.log(err)
       return {
-         props: {
-            stories: JSON.stringify([])
-         }
+         redirect: {destination: '/login'}
       }
    }
 }

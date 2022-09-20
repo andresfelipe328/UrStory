@@ -11,6 +11,7 @@ import {gsap} from 'gsap'
 
 import {FaUser, FaUnlockAlt} from 'react-icons/fa'
 import {MdEmail} from 'react-icons/md'
+import { match } from 'assert'
 
 const SignUp: NextPage = () => {
    const [email, setEmail] = useState('')
@@ -31,8 +32,17 @@ const SignUp: NextPage = () => {
       })
    }, [])
 
+   useEffect(() => {
+      setErr('')
+   },  [email, pdw, confirmPdw])
+
    const handleSignup = async (e: SyntheticEvent) => {
       e.preventDefault()
+
+      if (pdw !== confirmPdw) {
+         setErr("passwords don't match")
+         return
+      }
 
       try {
          await signup(email, pdw)
@@ -89,10 +99,13 @@ const SignUp: NextPage = () => {
                   />
                   <FaUnlockAlt className='peer-focus:scale-150 text-dark_2 dark:text-light_1 transition-transform duration-200 ease-in-out'/>
                </div>
-
-               <button className='w-fit py-1 px-10 font-semibold bg-light_1 dark:bg-dark_2 dark:text-light_2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
-                  Sign Up
-               </button>
+               { err ?
+                     <p>{err}</p>
+                  :
+                     <button className='w-fit py-1 px-10 font-semibold bg-light_1 dark:bg-dark_2 dark:text-light_2 shadow-mdShadow hover:shadow-onHover transition duration-200 ease-in'>
+                        Sign Up
+                     </button>
+               }
             </form>
          </section>
       </article>
@@ -105,20 +118,14 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       const token = await verifyIdToken(cookies.token)
       const {name} = token
       
-      if (!name)
+      if (token && !name)
          return {
             redirect: {destination: '/sign-up/part-two'}
-         }
-      else
-         return {
-            redirect: {destination: '/'}
          }
 
    } catch(err) {
       return {
-         props: {
-            loggedIn: false,
-         }
+         redirect: {destination: '/'}
       }
    }
 }

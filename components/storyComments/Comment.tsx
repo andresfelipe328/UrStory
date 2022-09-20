@@ -50,9 +50,7 @@ const Comment = ({storyID, author, comment}: Props) => {
                <div className='relative w-8 h-8 rounded-full overflow-hidden'>
                   <Image 
                      src={comment.authorIcon} 
-                     alt="user icon" 
-                     width="100%" 
-                     height="100%" 
+                     alt="user icon"
                      layout="fill" 
                      objectFit="cover"
                   />

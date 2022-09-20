@@ -36,9 +36,7 @@ const ReplyComment = ({commentAuthor, setReply, storyID, replyTo, setReplyTo}: P
                   <div className='relative w-7 h-7 rounded-full overflow-hidden'>
                      <Image 
                         src={user.photoURL} 
-                        alt="user icon" 
-                        width="100%" 
-                        height="100%" 
+                        alt="user icon"
                         layout="fill" 
                         objectFit="cover"
                      />

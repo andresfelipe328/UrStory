@@ -12,15 +12,6 @@ const Footer = () => {
    const [mounted, setMounted] = useState(false)
 
    const mode = useRef<HTMLDivElement>(null)
-   // useEffect(() => {
-   //    gsap.from(mode.current, {
-   //       duration: 2,
-   //       opacity: 0,
-   //       y: 20,
-   //       delay: .4,
-   //       ease: "elastic.out(1, 0.75)"
-   //    })
-   // }, [])
    
    useEffect(() => {
       setMounted(true)

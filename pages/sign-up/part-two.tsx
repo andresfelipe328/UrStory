@@ -15,11 +15,6 @@ import { useRouter } from 'next/router'
 import { GetServerSidePropsContext } from 'next'
 import Image from 'next/image'
 
-interface User {
-   username: string,
-   image: any
-}
-
 const SignUpTwo = () => {
    const [accImg, setAccImg] = useState<any>(null)
    const [username, setUsername] = useState('')
@@ -148,7 +143,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
    } catch(err) {
       return {
-         redirect: {destination: '/'}
+         props: {
+            loggedIn: false,
+         }
       }
    }
 }

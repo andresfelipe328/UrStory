@@ -118,14 +118,20 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       const token = await verifyIdToken(cookies.token)
       const {name} = token
       
-      if (token && !name)
+      if (!name)
          return {
             redirect: {destination: '/sign-up/part-two'}
+         }
+      else
+         return {
+            redirect: {destination: '/'}
          }
 
    } catch(err) {
       return {
-         redirect: {destination: '/'}
+         props: {
+            loggedIn: false,
+         }
       }
    }
 }

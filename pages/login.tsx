@@ -111,12 +111,14 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       const token = await verifyIdToken(cookies.token)
       
       return {
-         props: {}
+         redirect: {destination: '/'}
       }
 
    } catch(err) {
       return {
-         redirect: {destination: '/'}
+         props: {
+            loggedIn: false,
+         }
       }
    }
 }
